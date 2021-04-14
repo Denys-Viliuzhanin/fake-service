@@ -7,7 +7,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "help": "node js/index.js -h",
-    "start": "node js/index.js -m fs --fs-folder folder1:./temp/folder1 folder2:./temp/folder2"
+    "start": "node js/index.js -m fs --fs-folders data:./temp/data data2:./temp/data2"
   },
   "author": "Denys Viliuzhanin (denys.viliuzhanin@gmail.com)",
   "license": "",

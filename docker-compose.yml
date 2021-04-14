@@ -1,0 +1,11 @@
+version: "3.3"
+services:
+  fake-service:
+    build: .
+    command: 
+        - "-m"
+        - "fs"
+        - "--fs-folders"
+        - "data:/data/fake-service"
+    ports:
+      - "8080:8080"

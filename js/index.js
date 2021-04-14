@@ -24,10 +24,11 @@ const argv = yargs(hideBin(process.argv))
                                                 array: true,
                                                 type: 'string'
                                             },
-                                            'fs-folder' : {
+                                            'fs-folders' : {
                                                 describe : 'Specifies list of folders to be access via FS module',
                                                 array: true,
-                                                type: 'string'
+                                                type: 'string',
+                                                default: []
                                             }
                                          })
                                         .help()
