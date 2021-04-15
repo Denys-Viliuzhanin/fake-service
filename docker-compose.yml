@@ -2,6 +2,7 @@ version: "3.3"
 services:
   fake-service:
     build: .
+    image: fake-service
     command: 
         - "-m"
         - "fs"

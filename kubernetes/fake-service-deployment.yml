@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fake-service-deployment
+  labels:
+    app: fake-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fake-service
+  template:
+    metadata:
+      labels:
+        app: fake-service
+    spec:
+      containers:
+      - name: fake-service
+        image: fake-service:latest
+        args: ["-m", "fs", "--fs-folders", "data:/data/fake-service"]
+        ports:
+        - containerPort: 8080
+        imagePullPolicy: Never
