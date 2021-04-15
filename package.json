@@ -8,17 +8,17 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "help": "node js/index.js -h",
     "start": "node js/index.js -m fs --fs-folders data:./temp/data data2:./temp/data2",
-    "docker-build": "docker build -t fake-service .",
-    "minikube-load-image": "minikube image load fake-service:latest",
-    "minikube-deploy": "kubectl apply -f ./kubernetes/fake-service-deployment.yml",
-    "minikube-deploy-service": "kubectl apply -f ./kubernetes/fake-service-service.yml",
-    "minikube-undeploy" : "kubectl delete -n default deployment fake-service",
-    "minikube-service-url" : "minikube service --url fake-service"
+    "docker-build": "docker build --no-cache -t fake-service .",
+    "minikube-undeploy": "kubectl delete -n default deployment fake-service-deployment",
+    "minikube-service-url": "minikube service --url fake-service",
+    "minikube-deploy": "node ./kubernetes/minikube-deploy.js"
   },
   "author": "Denys Viliuzhanin (denys.viliuzhanin@gmail.com)",
   "license": "",
   "dependencies": {
+    "@kubernetes/client-node": "^0.14.3",
     "express": "^4.17.1",
+    "yaml": "^1.10.2",
     "yargs": "^16.2.0"
   }
 }

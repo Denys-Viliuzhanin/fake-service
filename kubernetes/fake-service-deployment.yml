@@ -5,7 +5,7 @@ metadata:
   labels:
     app: fake-service
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: fake-service
@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: fake-service
-        image: fake-service:latest
+        image: fake-service
         args: ["-m", "fs", "--fs-folders", "data:/data/fake-service"]
         ports:
         - containerPort: 8080

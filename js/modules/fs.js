@@ -1,7 +1,7 @@
 
 
 import {resolve} from 'path'
-import {existsSync, mkdirSync, createWriteStream} from 'fs'
+import {existsSync, mkdirSync, createWriteStream, createReadStream} from 'fs'
 
 export default function FSModule(config, server) {
 
@@ -63,6 +63,35 @@ export default function FSModule(config, server) {
                     });
 
                     req.pipe(writeStream)
+                }
+            },
+            {
+                path: '/folder/:folderId/file/:filename',
+                method: 'GET',
+                handler : (req, res) => {
+                    if (!folders.has(req.params.folderId)) {
+                        res.sendStatus(404)
+                        return
+                    }    
+                    let folder = folders.get(req.params.folderId)
+                    let filePath = resolve(folder.resolvedPath, req.params.filename)
+                    if (!existsSync(filePath)) {
+                        res.sendStatus(404)
+                        return
+                    }
+                    let readStream = createReadStream(filePath)
+                    readStream.on('error', error => {
+                        res.status(500).send(error)
+                        res.end()
+                    })
+                    // After all the data is saved, respond with a simple html form so they can post more data
+                    readStream.on('finish', function () {
+                        res.status(200).end("OK")
+                    });
+
+                    readStream.on('open', function () {
+                        readStream.pipe(res);
+                    });
                 }
             }
         ]
