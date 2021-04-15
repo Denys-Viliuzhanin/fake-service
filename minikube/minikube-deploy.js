@@ -7,12 +7,12 @@ let buildNumber = new Date().getMilliseconds()
 let tag =`fake-service:${buildNumber}`
 
 const BUILD_FOLDER = folder('./build')
-const KUBER_BUILD_FOLDER = folder(`${BUILD_FOLDER}/kubernetes-${buildNumber}`)
+const KUBER_BUILD_FOLDER = folder(`${BUILD_FOLDER}/minikube-${buildNumber}`)
 
-processSpec('./kubernetes/fake-service-deployment.yml',
+processSpec('./minikube/fake-service-deployment.yml',
             `${KUBER_BUILD_FOLDER}/fake-service-deployment.yml`,
             (srcSpec) => srcSpec.spec.template.spec.containers[0].image = tag)
-processSpec('./kubernetes/fake-service-service.yml',
+processSpec('./minikube/fake-service-service.yml',
             `${KUBER_BUILD_FOLDER}/fake-service-service.yml`)
 
 exec(`docker build -t ${tag} .`)

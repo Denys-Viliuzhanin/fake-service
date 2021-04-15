@@ -8,10 +8,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "help": "node js/index.js -h",
     "start": "node js/index.js -m fs --fs-folders data:./temp/data data2:./temp/data2",
-    "docker-build": "docker build --no-cache -t fake-service .",
-    "minikube-undeploy": "kubectl delete -n default deployment fake-service-deployment",
-    "minikube-service-url": "minikube service --url fake-service",
-    "minikube-deploy": "node ./kubernetes/minikube-deploy.js"
+    "minikube-open-port": "minikube service --url fake-service",
+    "minikube-deploy": "node ./minikube/minikube-deploy.js"
   },
   "author": "Denys Viliuzhanin (denys.viliuzhanin@gmail.com)",
   "license": "",
