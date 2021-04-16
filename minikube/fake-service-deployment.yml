@@ -14,10 +14,17 @@ spec:
       labels:
         app: fake-service
     spec:
+      volumes:
+      - name: fake-service-storage
+        persistentVolumeClaim:
+          claimName: fake-service-data-volumeclaim
       containers:
-      - name: fake-service
+      - name: fake-service2
         image: fake-service
-        args: ["-m", "fs", "--fs-folders", "data:/data/fake-service"]
+        args: ["-m", "fs", "--fs-folders", "data:/home/app/fake-service-data"]
         ports:
         - containerPort: 8080
+        volumeMounts:
+        - mountPath: "/home/app/fake-service-data"
+          name: fake-service-storage
         imagePullPolicy: Never

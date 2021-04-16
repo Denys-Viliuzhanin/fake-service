@@ -13,6 +13,6 @@ RUN chown app /data/fake-service
 RUN chmod +rw /data/fake-service 
 WORKDIR /app/fake-service
 
-USER app
+#USER app
 
 ENTRYPOINT ["./bin/fake-service.sh"]

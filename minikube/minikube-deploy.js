@@ -3,7 +3,7 @@ import {existsSync, mkdirSync, readFileSync, writeFileSync} from 'fs'
 import YAML from 'yaml'
 import k8s from '@kubernetes/client-node'
 
-let buildNumber = new Date().getMilliseconds()
+let buildNumber = Date.now()
 let tag =`fake-service:${buildNumber}`
 
 const BUILD_FOLDER = folder('./build')
@@ -14,9 +14,14 @@ processSpec('./minikube/fake-service-deployment.yml',
             (srcSpec) => srcSpec.spec.template.spec.containers[0].image = tag)
 processSpec('./minikube/fake-service-service.yml',
             `${KUBER_BUILD_FOLDER}/fake-service-service.yml`)
+processSpec('./minikube/fake-service-data-volume.yml',
+            `${KUBER_BUILD_FOLDER}/fake-service-data-volume.yml`)
+processSpec('./minikube/fake-service-data-volumeclaim.yml',
+            `${KUBER_BUILD_FOLDER}/fake-service-data-volumeclaim.yml`)
 
 exec(`docker build -t ${tag} .`)
 exec(`minikube image load ${tag} `)
+exec(`kubectl apply -f ${KUBER_BUILD_FOLDER}/fake-service-data-volume.yml`)
 exec(`kubectl apply -f ${KUBER_BUILD_FOLDER}/fake-service-deployment.yml`)
 exec(`kubectl apply -f ${KUBER_BUILD_FOLDER}/fake-service-service.yml`)
 
