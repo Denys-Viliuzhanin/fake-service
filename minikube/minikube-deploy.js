@@ -22,6 +22,7 @@ processSpec('./minikube/fake-service-data-volumeclaim.yml',
 exec(`docker build -t ${tag} .`)
 exec(`minikube image load ${tag} `)
 exec(`kubectl apply -f ${KUBER_BUILD_FOLDER}/fake-service-data-volume.yml`)
+exec(`kubectl apply -f ${KUBER_BUILD_FOLDER}/fake-service-data-volumeclaim.yml`)
 exec(`kubectl apply -f ${KUBER_BUILD_FOLDER}/fake-service-deployment.yml`)
 exec(`kubectl apply -f ${KUBER_BUILD_FOLDER}/fake-service-service.yml`)
 

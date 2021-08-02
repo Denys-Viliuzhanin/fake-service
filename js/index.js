@@ -5,6 +5,7 @@ import { hideBin } from 'yargs/helpers'
 import {ExpressServer} from './server.js'
 import Readiness from './modules/readiness.js'
 import FS from './modules/fs.js'
+import STUB from './modules/stub.js'
 
 const argv = yargs(hideBin(process.argv))
                                         .usage("Usage: [options]")
@@ -39,7 +40,9 @@ const argv = yargs(hideBin(process.argv))
                                         .argv
 
 const MODULES = new Map(Object.entries({
-    'fs': FS   
+    'rediness': Readiness,
+    'fs': FS,
+    'stub': STUB  
 }))
 
 let server = new ExpressServer(argv)
@@ -48,6 +51,8 @@ const allowedModules = new Set(argv.modules)
 MODULES.forEach((m,id)=>{
     if (allowedModules.has(id)) {
         server.addModule(id, m);
+    } else {
+        console.log(`Unknown module ${id}`);
     }
 })
 //Default modules

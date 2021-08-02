@@ -5,7 +5,7 @@ metadata:
   labels:
     app: fake-service
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: fake-service
@@ -21,7 +21,7 @@ spec:
       containers:
       - name: fake-service2
         image: fake-service
-        args: ["-m", "fs", "--fs-folders", "data:/home/app/fake-service-data"]
+        args: ["-m", "rediness", "stub", "fs", "--fs-folders", "data:/home/app/fake-service-data"]
         ports:
         - containerPort: 8080
         volumeMounts:

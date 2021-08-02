@@ -22,7 +22,11 @@ export class ExpressServer {
                 if ("GET" == r.method) {
                     moduleRouter.get(r.path, r.handler)
                 } else if ("POST" == r.method) {
-                    moduleRouter.post(r.path, r.handler)
+                    if (r.bodyParser) {
+                        moduleRouter.post(r.path, r.bodyParser, r.handler)
+                    } else {
+                        moduleRouter.post(r.path, r.handler)
+                    }
                 }
             })
             this.app.use('/' + id, moduleRouter)
