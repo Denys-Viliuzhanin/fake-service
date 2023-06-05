@@ -7,6 +7,7 @@ import Readiness from './modules/readiness.js'
 import FS from './modules/fs.js'
 import STUB from './modules/stub.js'
 import PrometheusModule from './modules/prometheus.js'
+import AzureServiceBusModule from './modules/azure/bus.js'
 
 const argv = yargs(hideBin(process.argv))
                                         .usage("Usage: [options]")
@@ -44,7 +45,9 @@ const MODULES = new Map(Object.entries({
     'rediness': Readiness,
     'fs': FS,
     'stub': STUB,
-    'prometheus' : PrometheusModule
+    'prometheus' : PrometheusModule,
+    'azure-bus' : AzureServiceBusModule
+
 }))
 
 let server = new ExpressServer(argv)

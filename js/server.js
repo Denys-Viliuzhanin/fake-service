@@ -27,6 +27,8 @@ export class ExpressServer {
                     } else {
                         moduleRouter.post(r.path, r.handler)
                     }
+                } else if ("DELETE" == r.method) {
+                    moduleRouter.delete(r.path, r.handler);
                 }
             })
             this.app.use('/' + id, moduleRouter)
