@@ -6,6 +6,7 @@ import {ExpressServer} from './server.js'
 import Readiness from './modules/readiness.js'
 import FS from './modules/fs.js'
 import STUB from './modules/stub.js'
+import PrometheusModule from './modules/prometheus.js'
 
 const argv = yargs(hideBin(process.argv))
                                         .usage("Usage: [options]")
@@ -42,14 +43,15 @@ const argv = yargs(hideBin(process.argv))
 const MODULES = new Map(Object.entries({
     'rediness': Readiness,
     'fs': FS,
-    'stub': STUB  
+    'stub': STUB,
+    'prometheus' : PrometheusModule
 }))
 
 let server = new ExpressServer(argv)
 
 const allowedModules = new Set(argv.modules)
 MODULES.forEach((m,id)=>{
-    if (allowedModules.has(id)) {
+    if (allowedModules.size == 0 || allowedModules.has(id)) {
         server.addModule(id, m);
     } else {
         console.log(`Unknown module ${id}`);
